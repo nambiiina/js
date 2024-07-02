@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Computer",
+      "price": 760,
+      "checked": true
+    },
+    {
+      "id": "2",
+      "name": "Phone",
+      "price": 1200,
+      "checked": false
+    },
+    {
+      "id": "3",
+      "name": "Tablet",
+      "price": 1000,
+      "checked": true
+    },
+    {
+      "id": "4",
+      "name": "Laptop",
+      "price": 2000,
+      "checked": true
+    },
+    {
+      "id": "5",
+      "name": "Camera",
+      "price": 1200,
+      "checked": true
+    },
+    {
+      "id": "6",
+      "name": "Printer",
+      "price": 500,
+      "checked": false
+    },
+    {
+      "id": "7",
+      "name": "Keyboard",
+      "price": 200,
+      "checked": false
+    },
+    {
+      "id": "8",
+      "name": "Mouse",
+      "price": 100,
+      "checked": true
+    },
+    {
+      "id": "9",
+      "name": "Speaker",
+      "price": 500,
+      "checked": true
+    }
+  ]
+}
