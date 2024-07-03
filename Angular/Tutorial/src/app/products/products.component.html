@@ -8,12 +8,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- The async pipe subscribes to the observable and automatically updates the view when the data changes. -->
+                    <!-- <tr *ngFor="let product of products$ | async"> -->
                     <tr *ngFor="let product of products">
                         <td>{{product.name}}</td>
                         <td>{{product.price}}</td>
                         <td>
                             <button (click)="handleCheckProduct(product)" class="btn btn-outline-success">
                                 <i [class]="product.checked?'bi bi-check':'bi bi-circle'"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="handleDeleteProduct(product.id)" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i>
                             </button>
                         </td>
                     </tr>

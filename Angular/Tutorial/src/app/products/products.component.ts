@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import { Product } from '../model/product.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -8,31 +11,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  products: Array<any> = []
+  // List of products
+  products: Array<Product> = []
 
-  constructor(private http:HttpClient) {
+  // An observable that emits an array of products.
+  // products$!: Observable<Array<Product>>;
+
+  constructor(private http:HttpClient, private productServce: ProductService) {
   }
 
   ngOnInit(): void {
-    this.http.get<Array<any>>('http://localhost:8080/products').subscribe({
+    this.getProducts();
+  }
+
+  getProducts() {
+    this.productServce.getAll().subscribe({
       next: data => {
         this.products = data;
-        debugger;
       },
       error: error => {
         console.error(error);
       }
     })
+   // this.products$ = this.productServce.getAll();
   }
 
-  handleCheckProduct(product: any) {
-    this.http.patch(
-      `http://localhost:8080/products/${product.id}`,
-      {checked:!product.checked}
-    ).subscribe({
+  handleCheckProduct(product: Product) {
+    this.productServce.check(product).subscribe({
       next: updatedProduct => {
         product.checked = !product.checked;
       },
     });
+  }
+
+  handleDeleteProduct(productId: number) {
+    if(confirm("Etes-vous sûr de vouloir suprimmer ce produit ?")) {
+      this.productServce.delete(productId).subscribe({
+        next: data => {
+          // this.getProducts();
+          this.products = this.products.filter(product => product.id !== productId);
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+    }
   }
 }
