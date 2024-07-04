@@ -53,6 +53,30 @@
       "name": "Speaker",
       "price": 500,
       "checked": true
+    },
+    {
+      "id": "10",
+      "name": "Monitor",
+      "price": 1000,
+      "checked": false
+    },
+    {
+      "id": "11",
+      "name": "Printer",
+      "price": 500,
+      "checked": false
+    },
+    {
+      "id": "12",
+      "name": "Keyboard",
+      "price": 200,
+      "checked": false
+    },
+    {
+      "id": "13",
+      "name": "Mouse",
+      "price": 100,
+      "checked": true
     }
   ]
 }
