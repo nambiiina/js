@@ -10,8 +10,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>('http://localhost:8080/products');
+  public get(keyword: string="",page: number=1, size: number=4) {
+    return this.http.get(`http://localhost:8080/products?name_like=${keyword}&_page=${page}&_limit=${size}`, {observe: 'response'});
   }
 
   public check(product: Product): Observable<Product> {
@@ -21,5 +21,13 @@ export class ProductService {
 
   public delete(productId: number) {
     return this.http.delete(`http://localhost:8080/products/${productId}`)
+  }
+
+  public save(product: Product): Observable<Product> {
+    return this.http.post<Product>('http://localhost:8080/products', product);
+  }
+
+  public search(keyword: string, page: number=1, size: number=3): Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(`http://localhost:8080/products?name_like=${keyword}&_page=${page}&_limit=${size}`)
   }
 }
