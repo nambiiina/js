@@ -3,13 +3,13 @@
     {
       "id": "1",
       "name": "Computer",
-      "price": 760,
+      "price": 750,
       "checked": true
     },
     {
       "id": "2",
       "name": "Phone",
-      "price": 1200,
+      "price": 1199,
       "checked": false
     },
     {

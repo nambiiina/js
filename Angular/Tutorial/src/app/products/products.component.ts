@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../model/product.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +22,7 @@ export class ProductsComponent implements OnInit {
   // An observable that emits an array of products.
   // products$!: Observable<Array<Product>>;
 
-  constructor(private http:HttpClient, private productServce: ProductService) {
+  constructor(private http:HttpClient, private productServce: ProductService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -70,5 +71,9 @@ export class ProductsComponent implements OnInit {
   handleGoToPage(page: number) {
     this.currentPage = page;
     this.searchProducts();
+  }
+
+  handleEditProduct(product: Product) {
+  this.router.navigateByUrl(`/editProduct/${product.id}`);
   }
 }

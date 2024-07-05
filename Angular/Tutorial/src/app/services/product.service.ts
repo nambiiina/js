@@ -30,4 +30,12 @@ export class ProductService {
   public search(keyword: string, page: number=1, size: number=3): Observable<Array<Product>> {
     return this.http.get<Array<Product>>(`http://localhost:8080/products?name_like=${keyword}&_page=${page}&_limit=${size}`)
   }
+
+  public getById(id: number): Observable<Product> {
+    return this.http.get<Product>(`http://localhost:8080/products/${id}`);
+  }
+
+  public update(product: Product): Observable<Product> {
+    return this.http.put<Product>(`http://localhost:8080/products/${product.id}`, product);
+  }
 }
