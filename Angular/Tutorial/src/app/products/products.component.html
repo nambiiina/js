@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-body">
-                <input class="p-1" type="text" [(ngModel)]="keyword">
+                <input class="p-1" type="text" [(ngModel)]="appState.productState.keyword">
                 <button (click)="searchProducts()" class="btn btn-outline-success ms-1">
                     Search
                     <i class="bi bi-search"></i>
@@ -17,7 +17,7 @@
                 <tbody>
                     <!-- The async pipe subscribes to the observable and automatically updates the view when the data changes. -->
                     <!-- <tr *ngFor="let product of products$ | async"> -->
-                    <tr *ngFor="let product of products">
+                    <tr *ngFor="let product of appState.productState.products">
                         <td>{{product.name}}</td>
                         <td>{{product.price}}</td>
                         <td>
@@ -39,8 +39,8 @@
                 </tbody>
             </table>
             <ul class="nav nav-pills">
-                <li *ngFor="let page of [].constructor(totalPages); let i=index">
-                    <button (click)="handleGoToPage(i+1)" [ngClass]="currentPage==(i+1)?'btn btn-success m-1':'btn btn-outline-success m-1'">
+                <li *ngFor="let page of [].constructor(appState.productState.totalPages); let i=index">
+                    <button (click)="handleGoToPage(i+1)" [ngClass]="appState.productState.currentPage==(i+1)?'btn btn-success m-1':'btn btn-outline-success m-1'">
                         {{i+1}}
                     </button>
                 </li>
