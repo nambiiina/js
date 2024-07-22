@@ -24,18 +24,27 @@ export class ProductsComponent implements OnInit {
   }
 
   searchProducts() {
+    this.appState.setProductState({ status: "LOADING" })
     this.productServce.get(this.appState.productState.keyword, this.appState.productState.currentPage, this.appState.productState.pageSize).subscribe({
       next: response => {
-        this.appState.productState.products = response.body as Product[];
+        let products = response.body as Product[];
         let totalProducts:number = parseInt(response.headers.get('x-total-count') || '0', 10);
-        this.appState.productState.totalProducts = totalProducts;
-        this.appState.productState.totalPages = Math.floor(totalProducts / this.appState.productState.pageSize);
+        let totalPages = Math.floor(totalProducts / this.appState.productState.pageSize);
         if(totalProducts % this.appState.productState.pageSize != 0) {
-          this.appState.productState.totalPages++;
+          ++totalPages;
         }
+        this.appState.setProductState({
+          products: products,
+          totalProducts: totalProducts,
+          totalPages: totalPages,
+          status: "LOADED"
+        })
       },
       error: error => {
-        console.error(error);
+        this.appState.setProductState({
+          status: "ERROR",
+          errorMessage: error.message
+        })
       }
     })
    // this.products$ = this.productServce.getAll();
@@ -54,8 +63,8 @@ export class ProductsComponent implements OnInit {
       this.productServce.delete(productId).subscribe({
         next: data => {
           // this.getProducts();
-          this.appState.productState.products = this.appState.productState.products.filter((product:any) => product.id !== productId);
-          this.appState.productState.totalProducts = this.appState.productState.products.length;
+          // this.appState.productState.products = this.appState.productState.products.filter((product:any) => product.id !== productId);
+          this.searchProducts();
         },
         error: error => {
           console.error(error);
